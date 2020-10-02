@@ -21,7 +21,7 @@ if(efectivo > totalPagar || credito > totalPagar || disponible > totalPagar){
     } else {
     console.log("Otra forma de pago");
     }
-}else{
+} else {
     console.log("Fondos insuficientes");
 }
 
