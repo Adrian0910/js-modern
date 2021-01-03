@@ -12,6 +12,8 @@ const sintomasInput = document.querySelector('#sintomas');
 const formulario = document.querySelector('#nueva-cita');
 const contenedorCitas = document.querySelector('#citas');
 
+let editando;
+
 
 // CLASES   
 class citas {
@@ -21,6 +23,14 @@ class citas {
     agregarCita(cita){
         this.citas = [...this.citas, cita];
         
+    }
+
+    eliminarCita(id){
+        this.citas = this.citas.filter( cita => cita.id !== id );
+    }
+
+    editarCita(citaActualizada){
+        this.citas = this.citas.map( cita => cita.id === citaActualizada.id ? citaActualizada: cita );
     }
 }
 
@@ -95,6 +105,22 @@ class UI{
             `;
 
 
+            // boton para eliminar cita
+            const btnEliminar = document.createElement('button');
+            btnEliminar.classList.add('btn', 'btn-danger', 'mr-2');
+            btnEliminar.innerHTML = 'Eliminar <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+
+            btnEliminar.onclick = () => eliminarCita(id);
+
+
+            // boton para editar cita
+            const btnEditar = document.createElement('button');
+            btnEditar.classList.add('btn', 'btn-info');
+            btnEditar.innerHTML = 'Editar <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>';
+
+            btnEditar.onclick = () => cargarEdicion(cita);
+
+
             // Agregar los parrafos al divCita
             divCita.appendChild(mascotaParrafo);
             divCita.appendChild(propietarioParrafo);
@@ -102,6 +128,8 @@ class UI{
             divCita.appendChild(fechaParrafo);
             divCita.appendChild(horaParrafo);
             divCita.appendChild(mascotaSintomas);
+            divCita.appendChild(btnEliminar);
+            divCita.appendChild(btnEditar);
             
 
             // Agregar las citas al HTML
@@ -166,12 +194,28 @@ function nuevaCita(e){
         return;
     }
 
-    // generar un id
-    citaObj.id = Date.now();
+    if(editando){
+        ui.imprimirAlerta('Editado correctamente');
 
-    // Creando una nueva cita
-    administrarCitas.agregarCita({...citaObj});
+        // Pasar el obj de la cita a edición
+        administrarCitas.editarCita({...citaObj});
 
+        // Regresar el texto del botón al original
+        formulario.querySelector('button[type="submit"]').textContent = 'Crear Cita';
+
+        // Quitar modo edicion
+        editando = false;
+
+    }else{
+        // generar un id
+        citaObj.id = Date.now();
+
+        // Creando una nueva cita
+        administrarCitas.agregarCita({...citaObj});
+
+        // Mensaje de agregado correctamente
+        ui.imprimirAlerta('Se agregó correctamente');
+    }
 
     // Reiniciar el obj
     reiniciarObjeto();
@@ -192,5 +236,43 @@ function reiniciarObjeto(){
     citaObj.sintomas = '';
 }
 
+
+function eliminarCita(id){
+    // Eliminar la cita
+    administrarCitas.eliminarCita(id);
+
+    // Mostrar mensaje
+    ui.imprimirAlerta('La cita se eliminó correctamente');
+
+    // Refresca citas
+    ui.imprimirCitas(administrarCitas);
+
+}
+
+// Carga los datos y el modo edición
+function cargarEdicion( cita ){
+    const { mascota, propietario, telefono, fecha, hora, sintomas, id } = cita;
+
+    // Llenar los inputs
+    mascotaInput.value = mascota;
+    propietarioInput.value = propietario;
+    telefonoInput.value = telefono;
+    fechaInput.value = fecha;
+    horaInput.value = hora;
+    sintomasInput.value = sintomas;
+
+    // Llenar el obj
+    citaObj.mascota = mascota;
+    citaObj.propietario = propietario;
+    citaObj.telefono = telefono;
+    citaObj.fecha = fecha;
+    citaObj.hora = hora;
+    citaObj.sintomas = sintomas;
+    citaObj.id = id;
+    
+    // Cambiar el texto del botón
+    formulario.querySelector('button[type="submit"]').textContent = 'Guardar cambios';
+    editando = true;
+}
 
 
