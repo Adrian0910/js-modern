@@ -1,6 +1,6 @@
 (function() {
-    let DB;
-    const formulario = document.querySelector('#formulario');
+    
+    
 
     document.addEventListener('DOMContentLoaded', () => {
 
@@ -40,7 +40,7 @@
     }   
 
     function crearNuevoCliente(cliente) {
-        const transaction = DB.transaction(['crm'], 'readwrite');
+        const transaction = db.transaction(['crm'], 'readwrite');
 
         const objectStore = transaction.objectStore('crm');
 

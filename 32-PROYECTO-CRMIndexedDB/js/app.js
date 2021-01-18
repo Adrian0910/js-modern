@@ -1,69 +1,62 @@
-
 (function(){
 
-    let DB;
-
+    
     const listadoClientes = document.querySelector('#listado-clientes');
 
     document.addEventListener('DOMContentLoaded', () => {
         crearDB();
 
-        if(window.indexedDB.open('crm', 1)){
-            obtenercleintes();
+        if(window.indexedDB.open('crm', 1)) {
+            obtenerClientes();
         }
 
         listadoClientes.addEventListener('click', eliminarRegistro);
-
     });
 
+    function eliminarRegistro(e) {
+        if(e.target.classList.contains('eliminar')) {
+            const idEliminar = Number( e.target.dataset.cliente );
 
-    function eliminarRegistro(e){
-        if(e.target.classList.contains('eliminar')){
-            const idEliminar = Number(e.target.dataset.cliente);
+            const confirmar = confirm('Deseas eliminar este cliente?');
 
-            const confirmar = confirm('¿Deseas eliminar este cliente?');
-
-            if(confirmar){
-                const transactio = DB.transaction(['crm'], 'readwrite');
-                const objectStore = transactio.objectStore('crm');
+            if(confirmar) {
+                const transaction = db.transaction(['crm'], 'readwrite');
+                const objectStore = transaction.objectStore('crm');
 
                 objectStore.delete(idEliminar);
 
-                transactio.oncomplete = () => {
-                    console.log('Eliminado...')
+                transaction.oncomplete = function() {
+                    console.log('Eliminado...');
 
                     e.target.parentElement.parentElement.remove();
                 };
 
-                transactio.onerror = () => {
+                transaction.onerror = function() {
                     console.log('Hubo un error');
-                };
+                }
             }
         }
     }
 
-    
-    // Crea la base de datos de IndexDB
-    function crearDB(){
-        const crearDB = window.indexedDB.open('crm', 1);
 
-        // Si llega a presentarse un error
-        crearDB.onerror= function(){
+    // Crea la base de datos de IndexDB
+    function crearDB() {
+        //const crearDB = window.indexedDB.open('crm', 1);
+        const create = window.indexedDB.open('crm', 2)
+
+        create.onerror = function() {
             console.log('Hubo un error');
         };
 
-        // asignacion a la variable DB si todo salio bien
-        crearDB.onsuccess = function(){
-            DB = crearDB.result;
+        create.onsuccess = function() {
+            db = crearDB.result;
         };
 
-        // Cuando se creaa la BD registra todas las columnas
-        crearDB.onupgradeneeded = function(e){
-            const db = e.target.result; // el resultado obtenido de la BD
+        create.onupgradeneeded = function(e) {
+            const db = e.target.result;
 
             const objectStore = db.createObjectStore('crm', { keyPath: 'id', autoIncrement: true });
 
-            // Los datos que se necesitan 
             objectStore.createIndex('nombre', 'nombre', { unique: false });
             objectStore.createIndex('email', 'email', { unique: true });
             objectStore.createIndex('telefono', 'telefono', { unique: false });
@@ -72,31 +65,31 @@
 
             console.log('DB Lista y Creada');
         }
-
     }
 
-    function obtenercleintes(){
-        const abrirConexion = window.indexedDB.open('crm', 1);
 
-        abrirConexion.onerror = () => {
-            console.log('Hubo un error');
+    function obtenerClientes() {
+        //const abrirConexion = window.indexedDB.open('crm', 1);
+        const create = window.indexedDB.open('crm', 2)
+
+        create.onerror = function() {
+            console.log('hubo un error');
         };
 
-        abrirConexion.onsuccess = () => {
-            DB = abrirConexion.result;
+        create.onsuccess = function() {
+            db = create.result;
 
-            const objectStore = DB.transaction('crm').objectStore('crm');
+            const objectStore = db.transaction('crm').objectStore('crm');
 
             objectStore.openCursor().onsuccess = function(e) {
                 const cursor = e.target.result;
 
-                if(cursor){
-                   const { nombre, empresa, email, telefono, id } = cursor.value;
-
+                if(cursor) {
+                    const { nombre, empresa, email, telefono, id } = cursor.value;
 
                    
-                    listadoClientes.innerHTML += 
-                    ` <tr>
+                    listadoClientes.innerHTML += ` 
+                        <tr>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <p class="text-sm leading-5 font-medium text-gray-700 text-lg  font-bold"> ${nombre} </p>
                                 <p class="text-sm leading-10 text-gray-700"> ${email} </p>
@@ -115,19 +108,11 @@
                     `;
 
 
-
-                   cursor.continue();
-
+                    cursor.continue();
                 } else {
-                    console.log('No hay mas registros...');
+                    console.log('No hay más registros...');
                 }
             }
         }
-
     }
-
 })();
-
-
-
-
