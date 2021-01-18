@@ -6,8 +6,8 @@ Este repositorio tiene como objetivo aprender JS **creando algunos proyectos** c
 * LocalStorage
 * Cotizador con prototypes
 * Administrador de presupuestos
-* Administrador de citas con IndexDB
-* CRM con IndexDB
+* Administrador de citas con IndexedDB
+* CRM con IndexedDB
 * Consumo de APIs
   * Datos del clima
   * Buscador de canciones
