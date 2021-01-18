@@ -6,7 +6,7 @@ const nuevoPais = pais =>  new Promise( resolve => {
         paises.push(pais);
         resolve(`Agregado: ${pais}`);
     }, 3000);
-})
+});
 
 
 nuevoPais('Alemania')
@@ -23,6 +23,9 @@ nuevoPais('Alemania')
     .then( resultado => {
         console.log(resultado);
         console.log(paises);
+        setTimeout(() => {
+            console.log('Fin del arreglo...');
+        }, 1000);
     })
 
 
