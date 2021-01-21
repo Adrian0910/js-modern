@@ -34,7 +34,5 @@ function ejecutarSpeechAPI(){
         salida.appendChild(speech);
         salida.appendChild(seguridad);
     }
-
-
 }
 
