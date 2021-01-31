@@ -1,11 +1,32 @@
 {
   "clientes": [
     {
-      "nombre": "Juan NUEVO!",
-      "email": "correo2@correo.com",
-      "telefono": "12",
-      "empresa": "12212",
-      "id": 26
+      "nombre": "Adrian",
+      "email": "adrian@ibm.com",
+      "telefono": "561651565",
+      "empresa": "Hola",
+      "id": 27
+    },
+    {
+      "nombre": "Luis",
+      "email": "luis@google.com",
+      "telefono": "56882011",
+      "empresa": "Google",
+      "id": 28
+    },
+    {
+      "nombre": "Ivan",
+      "email": "correo@correo.com",
+      "telefono": "54896211",
+      "empresa": "Google",
+      "id": 33
+    },
+    {
+      "nombre": "Juan",
+      "email": "correo@correo.com",
+      "telefono": "56220100",
+      "empresa": "juanYAsociados",
+      "id": 34
     }
   ]
 }
