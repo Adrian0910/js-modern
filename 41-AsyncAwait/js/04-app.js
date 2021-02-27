@@ -21,15 +21,6 @@ function descargarNuevosPedidos(){
 
 const app = async () => {
     try {
-
-        // Funciones dependientes
-        /* const clientes = await descargarNuevosClientes();
-        console.log(clientes);
-
-        const pedidos = await descargarNuevosPedidos();
-        console.log(pedidos); */
-        
-
         // Funciones independientes
         const respuesta = await Promise.all([ descargarNuevosClientes(), descargarNuevosPedidos() ]);
         console.log(respuesta[0]);
