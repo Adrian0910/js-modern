@@ -61,9 +61,11 @@ async function buscarImagenes() {
             totalPaginas = calcularPaginas(resultado.totalHits);
             mostrarImagenes(resultado.hits);
         }); */
+        
     try {
         const respuesta = await fetch(url);
         const resultado = await respuesta.json();
+        
         totalPaginas = calcularPaginas(resultado.totalHits);
         mostrarImagenes(resultado.hits);
 
