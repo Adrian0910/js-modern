@@ -1,0 +1,14 @@
+{
+  "name": "51-testing-jest",
+  "version": "1.0.0",
+  "description": "Aprendiendo JEST",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Adrian Ibarra",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^27.0.3"
+  }
+}

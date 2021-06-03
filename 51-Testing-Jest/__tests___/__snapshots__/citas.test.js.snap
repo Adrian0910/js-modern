@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Probar la clase de citas Actualizar cita 1`] = `
+Citas {
+  "citas": Array [],
+}
+`;
+
+exports[`Probar la clase de citas Eliminar cita 1`] = `
+Citas {
+  "citas": Array [],
+}
+`;

@@ -1,0 +1,24 @@
+{
+  "name": "51-testing-jest",
+  "version": "1.0.0",
+  "description": "Aprendiendo JEST",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adrian0910/js-modern.git"
+  },
+  "author": "Adrian Ibarra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Adrian0910/js-modern/issues"
+  },
+  "homepage": "https://github.com/Adrian0910/js-modern#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.14.4",
+    "babel-jest": "^27.0.2",
+    "jest": "^27.0.3"
+  }
+}
