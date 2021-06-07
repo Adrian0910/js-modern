@@ -1,7 +1,7 @@
 /// <reference types="cypress"/>
 
 
-describe('Llena los campos para una nueva cita y la muestra', () => {
+describe('Llena los campos para una nueva cita y la elimina', () => {
     it('campos nueva cita', () => {
 
         cy.visit('/index.html');
@@ -37,5 +37,16 @@ describe('Llena los campos para una nueva cita y la muestra', () => {
 
         cy.get('[data-cy=alerta]')
             .should('have.class', 'alert-success')
-    })
+    });
+
+    it('Eliminar cita', () => {
+        cy.get('[data-cy=btn-eliminar]')
+        .click();
+
+        cy.get('[data-cy="citas-heading"]')
+            .invoke('text')
+            .should('equal', 'No hay Citas, comienza creando una');
+    });
+
+
 });
