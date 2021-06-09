@@ -1,0 +1,27 @@
+{
+  "name": "53-webpack-eslint",
+  "version": "1.0.0",
+  "description": "Aprendiendo webpack babel y eslint",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "babel": "babel entrada.js --out-file salida.js --presets=@babel/preset-env",
+    "webpack": "webpack",
+    "dev": "webpack serve",
+    "watch": "webpack --w"
+  },
+  "author": "Adrian",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
+    "babel-loader": "^8.2.2",
+    "eslint": "^7.28.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.23.4",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.1",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
